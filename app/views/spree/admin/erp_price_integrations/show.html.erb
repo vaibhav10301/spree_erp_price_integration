@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @erp_integration.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @erp_integration.url %>
+</p>
+
+<p>
+  <strong>Selected:</strong>
+  <%= @erp_integration.selected %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @erp_integration.token %>
+</p>
+
+<!-- <%= link_to 'Edit', edit_admin_erp_price_integration_path(@erp_integration) %> |-->
+<%= link_to 'Back', admin_erp_price_integrations_path %>

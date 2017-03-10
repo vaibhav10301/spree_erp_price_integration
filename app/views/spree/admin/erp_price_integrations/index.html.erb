@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Price Integration with Spree Application</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Select</th>
+      <th>Name</th>
+      <th>Url</th>
+      <th>Selected</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @erp_integrations.each do |erp_integration| %>
+      <% class_name = erp_integration.selected ? "table-row-highlight" : " " %>
+      <tr class = <%= class_name %> >
+        <td><%= radio_button_tag "Integration", erp_integration.id, erp_integration.selected  %>
+        <td><%= erp_integration.name %></td>
+        <td><%= erp_integration.url %></td>
+        <td><%= erp_integration.selected %></td>
+        <td><%= link_to 'Show', admin_erp_price_integration_path(erp_integration) %></td><!-- 
+        <td><%= link_to 'Edit', edit_admin_erp_price_integration_path(erp_integration) %></td> -->
+        <td><%= link_to 'Destroy', admin_erp_price_integration_path(erp_integration), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Integration', new_admin_erp_price_integration_path %>
+<%= submit_tag "Integrate", class: "integrate-price" %>
+
+<script type="text/javascript">
+  $(function(){
+    $("input[name=Integration]").change(function(){
+      var app_name;
+      if ($("input[name='Integration']:checked").val() == 5){
+        app_name = "ERB Application"
+      }
+      else if ($("input[name='Integration']:checked").val() == 6){
+        app_name = "Spree Application"
+      }
+      $(".integrate-price").val("Integrate" + " " + app_name);
+    });
+  });
+  
+  $( document ).ready(function() {
+    $('.integrate-price').click(function() {
+      debugger;
+      $.ajax({
+        url: "/erp_price_integrations/" + $("input[name='Integration']:checked").val() + "/source-update",
+        data: {selected: true},
+        type: "PUT",
+        dataType : "json",
+        success: function(json) {
+          if(!json.error) location.reload(true);
+        }
+      })
+    });
+  });
+</script>

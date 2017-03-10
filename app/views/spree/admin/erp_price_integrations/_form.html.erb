@@ -1,0 +1,33 @@
+<%= form_for(@erp_integration, url: '/admin/erp_price_integrations') do |f| %>
+  <% if @erp_integration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@erp_integration.errors.count, "error") %> prohibited this erp_integration from being saved:</h2>
+
+      <ul>
+      <% @erp_integration.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :selected %><br>
+    <%= f.check_box :selected %>
+  </div>
+  <div class="field">
+    <%= f.label :token %><br>
+    <%= f.text_area :token %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
